@@ -17,40 +17,44 @@ import java.sql.Statement;
 public class Conexion {
 
     //metodo publico conexion
-
     Connection con;
+    public static Connection sql;
 
-    public Conexion() {
+    public static Connection conectar() throws Exception {
         try {
             //driver
             Class.forName("com.mysql.jdbc.Driver");
             //variable conexion
-            con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Agenda", "root", "");
+            sql = DriverManager.getConnection("jdbc:mysql://localhost/Agenda", "root", "");
 
         } catch (Exception e) {
             System.err.println("Error: " + e);
 
         }
+        return sql;
 
     }
-
-    public static void main(String[] args) {
-        //instancear
-        Conexion cn = new Conexion();
-        Statement st;
-        ResultSet rs;
-        try {
-            st = cn.con.createStatement();
-            rs = st.executeQuery("select * from contactos");
-            while (rs.next()) {
-                System.out.println(rs.getInt("id_contacto") + " " + rs.getString("nombre")
-                        + " " + rs.getString("telefono") + " " + rs.getString("email"));
-            }
-            cn.con.close();
-        } catch (Exception e) {
-
-        }
-
-    }
-
 }
+/*
+
+ public static void main(String[] args) {
+ //instancear
+ Conexion cn = new Conexion();
+ Statement st;
+ ResultSet rs;
+ try {
+ st = cn.con.createStatement();
+ rs = st.executeQuery("select * from contactos");
+ while (rs.next()) {
+ System.out.println(rs.getInt("id_contacto") + " " + rs.getString("nombre")
+ + " " + rs.getString("telefono") + " " + rs.getString("email"));
+ }
+ cn.con.close();
+ } catch (Exception e) {
+
+ }
+
+ }
+ */
+
+
